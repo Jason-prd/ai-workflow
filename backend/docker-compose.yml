@@ -1,0 +1,64 @@
+# AI自动化工作流 - Docker Compose 生产配置
+version: "3.9"
+
+services:
+  # API 服务
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai-workflow-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=false
+      - DATABASE_URL=${DATABASE_URL:-sqlite:///./ai_workflow.db}
+      - SECRET_KEY=${SECRET_KEY}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES:-1440}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o-mini}
+      - OPENAI_MAX_TOKENS=${OPENAI_MAX_TOKENS:-2000}
+      - OPENAI_TEMPERATURE=${OPENAI_TEMPERATURE:-0.7}
+      - FEISHU_APP_ID=${FEISHU_APP_ID}
+      - FEISHU_APP_SECRET=${FEISHU_APP_SECRET}
+      - FEISHU_VERIFICATION_TOKEN=${FEISHU_VERIFICATION_TOKEN}
+      - FEISHU_ENCRYPT_KEY=${FEISHU_ENCRYPT_KEY}
+      - FEISHU_CALENDAR_POLL_INTERVAL_SECONDS=${FEISHU_CALENDAR_POLL_INTERVAL_SECONDS:-60}
+      - FEISHU_CALENDAR_REMIND_MINUTES=${FEISHU_CALENDAR_REMIND_MINUTES:-5}
+      - MAX_NODES_PER_WORKFLOW=${MAX_NODES_PER_WORKFLOW:-20}
+      - MAX_CONCURRENT_EXECUTIONS=${MAX_CONCURRENT_EXECUTIONS:-5}
+      - EXECUTION_TIMEOUT_SECONDS=${EXECUTION_TIMEOUT_SECONDS:-60}
+      - MAX_EXECUTION_LOGS=${MAX_EXECUTION_LOGS:-100}
+      - LOG_RETENTION_DAYS=${LOG_RETENTION_DAYS:-7}
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - ai-workflow-network
+
+  # Nginx 反向代理
+  nginx:
+    image: nginx:alpine
+    container_name: ai-workflow-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - ./frontend-dist:/usr/share/nginx/html:ro
+    depends_on:
+      - api
+    networks:
+      - ai-workflow-network
+
+networks:
+  ai-workflow-network:
+    driver: bridge
