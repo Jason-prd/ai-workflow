@@ -110,8 +110,12 @@
 | 2026-04-04 23:28 | 每小时Review + 阻塞升级跟进（第23小时） | 项目经理 | ✅ 已完成 | 23小时阻塞升级已追加到TODO.md，周日继续跟进 |
 | 2026-04-04 22:45 | Docker Compose 本地部署验证 | 后端开发（小马） | ✅ 已完成 | `docker compose up -d --build` 成功；ai-workflow-api 运行正常(healthy)；ai-workflow-nginx 运行正常；API健康检查 `{"status":"healthy"}`✅；前端HTTPS访问 HTTP 200✅；OpenAPI 3.1.0 正常✅ |
 | 2026-04-05 00:17 | GitHub仓库Star与Fork检查 | 后端开发（小马） | ✅ 已完成 | Stars: 0, Forks: 0, 仓库健康(未归档/未禁用,MIT License, Issues/Pull Requests已开启) |
+| 2026-04-05 02:28 | 每小时Review + 阻塞升级跟进（第28小时） | 项目经理 | ✅ 已完成 | 28小时阻塞升级跟进已追加到TODO.md，新增GitHub Star增长运营任务和新媒体推广任务 |
 | 2026-04-05 01:28 | 每小时Review + 阻塞升级跟进（第26小时） | 项目经理 | ✅ 已完成 | 26小时阻塞升级跟进已追加到TODO.md，周日凌晨继续跟进 |
 | 2026-04-05 00:39 | GitHub开源准备 - 文档完善 | 后端开发（小马） | ✅ 已完成 | 新增：CONTRIBUTING.md（贡献指南）✅ / .github/ISSUE_TEMPLATE.md（Issue模板）✅ / 更新README.md徽章和仓库URL ✅ |
+| 2026-04-05 02:28 | GitHub Star增长与社区运营 | 运营(Sam) | 🔄 待处理 | 规划GitHub项目展示优化、社交媒体推广计划 |
+| 2026-04-05 02:28 | 演示视频/Demo制作 | 运营(Sam) | 🔄 待处理 | 规划Demo视频脚本和录制计划 |
+| 2026-04-05 02:54 | GitHub开源准备完善 | 后端开发（小马） | ✅ 已完成 | README.md内容完整✅ / LICENSE/CONTRIBUTING.md/SECURITY.md✅ / .gitignore✅ / GitHub Topics已设置11个(ai-automation,docker,fastapi,feishu,low-code,openai,python,react,typescript,visual-workflow,workflow-automation)✅ / Description✅ / 仓库健康✅ |
 
 ## 前端API对齐修复详情（2026-04-04）
 
