@@ -14,11 +14,14 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/your-username/ai-workflow/stargazers">
-    <img src="https://img.shields.io/github/stars/your-username/ai-workflow?style=flat-square" alt="Stars"/>
+  <a href="https://github.com/Jason-prd/ai-workflow/stargazers">
+    <img src="https://img.shields.io/github/stars/Jason-prd/ai-workflow?style=flat-square" alt="Stars"/>
   </a>
-  <a href="https://github.com/your-username/ai-workflow/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/your-username/ai-workflow?style=flat-square" alt="License"/>
+  <a href="https://github.com/Jason-prd/ai-workflow/network/members">
+    <img src="https://img.shields.io/github/forks/Jason-prd/ai-workflow?style=flat-square" alt="Forks"/>
+  </a>
+  <a href="https://github.com/Jason-prd/ai-workflow/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/Jason-prd/ai-workflow?style=flat-square" alt="License"/>
   </a>
   <a href="https://www.python.org/">
     <img src="https://img.shields.io/badge/Python-3.11+-blue?style=flat-square" alt="Python"/>
@@ -28,6 +31,12 @@
   </a>
   <a href="https://react.dev/">
     <img src="https://img.shields.io/badge/React-18-blue?style=flat-square" alt="React"/>
+  </a>
+  <a href="https://github.com/Jason-prd/ai-workflow/actions/workflows/ci.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/Jason-prd/ai-workflow/ci.yml?branch=main&style=flat-square" alt="Build"/>
+  </a>
+  <a href="https://github.com/Jason-prd/ai-workflow/releases">
+    <img src="https://img.shields.io/github/v/release/Jason-prd/ai-workflow?style=flat-square" alt="Release"/>
   </a>
 </p>
 
@@ -133,7 +142,7 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/your-username/ai-workflow.git
+git clone https://github.com/Jason-prd/ai-workflow.git
 cd ai-workflow/backend
 
 # 配置环境变量
@@ -440,7 +449,7 @@ services:
 
 ```bash
 # 1. 克隆代码
-git clone https://github.com/your-username/ai-workflow.git
+git clone https://github.com/Jason-prd/ai-workflow.git
 cd ai-workflow/backend
 
 # 2. 配置环境变量
@@ -560,7 +569,7 @@ A low-code visual workflow automation platform powered by AI. Create AI-driven w
 
 ```bash
 # Clone and start with Docker
-git clone https://github.com/your-username/ai-workflow.git
+git clone https://github.com/Jason-prd/ai-workflow.git
 cd ai-workflow/backend
 cp .env.example .env
 # Edit .env with your API keys
