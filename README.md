@@ -14,8 +14,15 @@
 </p>
 
 <p align="center">
+  ⭐ <a href="https://github.com/Jason-prd/ai-workflow">Star 支持我们</a> · 您的 Stars 是我们持续迭代的最大动力！
+</p>
+
+<p align="center">
   <a href="https://github.com/Jason-prd/ai-workflow/stargazers">
     <img src="https://img.shields.io/github/stars/Jason-prd/ai-workflow?style=flat-square" alt="Stars"/>
+  </a>
+  <a href="https://star-history.dev/#Jason-prd/ai-workflow">
+    <img src="https://api.star-history.dev/svg?repos=Jason-prd/ai-workflow" alt="Star History" width="120"/>
   </a>
   <a href="https://github.com/Jason-prd/ai-workflow/network/members">
     <img src="https://img.shields.io/github/forks/Jason-prd/ai-workflow?style=flat-square" alt="Forks"/>

@@ -1,0 +1,84 @@
+{
+  "name": "数据处理管道",
+  "description": "从外部 API 获取数据，经过 GPT 清洗和整理后存储至飞书文档",
+  "trigger_config": {
+    "type": "cron",
+    "expression": "0 */4 * * *",
+    "timezone": "Asia/Shanghai"
+  },
+  "nodes": [
+    {
+      "id": "trigger_1",
+      "type": "trigger",
+      "name": "定时触发（每4小时）",
+      "config": {
+        "type": "cron",
+        "cron_expression": "0 */4 * * *",
+        "timezone": "Asia/Shanghai"
+      },
+      "position": { "x": 100, "y": 300 }
+    },
+    {
+      "id": "http_1",
+      "type": "tool",
+      "name": "获取外部数据",
+      "config": {
+        "tool_type": "http_request",
+        "method": "GET",
+        "url": "{{DATA_API_URL}}",
+        "headers": {
+          "Authorization": "Bearer {{API_KEY}}",
+          "Content-Type": "application/json"
+        },
+        "timeout": 30
+      },
+      "position": { "x": 350, "y": 300 }
+    },
+    {
+      "id": "ai_1",
+      "type": "ai_task",
+      "name": "GPT 数据清洗",
+      "config": {
+        "model": "gpt-4o-mini",
+        "prompt": "请将以下原始数据进行清洗和格式化，提取关键字段，输出为结构化摘要（JSON格式）。原始数据：\n{{http_result}}",
+        "temperature": 0.3,
+        "max_tokens": 2000
+      },
+      "position": { "x": 600, "y": 300 }
+    },
+    {
+      "id": "condition_1",
+      "type": "condition",
+      "name": "检查数据质量",
+      "config": {
+        "expression": "{{ai_result}} != ''",
+        "description": "确保GPT输出非空"
+      },
+      "position": { "x": 850, "y": 300 }
+    },
+    {
+      "id": "feishu_1",
+      "type": "tool",
+      "name": "写入飞书文档",
+      "config": {
+        "tool_type": "feishu_doc",
+        "action": "create",
+        "title": "数据报表 - {{CURRENT_DATE}}",
+        "content": "# 数据报表 - {{CURRENT_DATE}}\n\n## 摘要\n\n{{ai_result}}\n\n---\n*由 AI 自动化工作流生成*"
+      },
+      "position": { "x": 1100, "y": 200 }
+    },
+    {
+      "id": "feishu_2",
+      "type": "tool",
+      "name": "推送完成通知",
+      "config": {
+        "tool_type": "feishu_message",
+        "receive_id": "{{FEISHU_CHAT_ID}}",
+        "receive_id_type": "chat_id",
+        "text": "✅ 数据管道执行完成\n📅 日期：{{CURRENT_DATE}}\n📄 文档已更新"
+      },
+      "position": { "x": 1100, "y": 400 }
+    }
+  ]
+}

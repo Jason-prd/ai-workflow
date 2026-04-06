@@ -1,0 +1,54 @@
+{
+  "name": "飞书消息推送工作流",
+  "description": "监听关键词或定时触发，向指定飞书群或个人推送通知消息",
+  "trigger_config": {
+    "type": "manual",
+    "expression": null,
+    "timezone": null
+  },
+  "nodes": [
+    {
+      "id": "trigger_1",
+      "type": "trigger",
+      "name": "手动触发",
+      "config": {
+        "type": "manual"
+      },
+      "position": { "x": 100, "y": 200 }
+    },
+    {
+      "id": "condition_1",
+      "type": "condition",
+      "name": "判断紧急程度",
+      "config": {
+        "expression": "{{severity}} == 'high'",
+        "description": "判断是否为紧急事件"
+      },
+      "position": { "x": 350, "y": 200 }
+    },
+    {
+      "id": "feishu_normal",
+      "type": "tool",
+      "name": "飞书通知（普通）",
+      "config": {
+        "tool_type": "feishu_message",
+        "receive_id": "{{FEISHU_CHAT_ID}}",
+        "receive_id_type": "chat_id",
+        "text": "📢 通知：{{message}}"
+      },
+      "position": { "x": 600, "y": 100 }
+    },
+    {
+      "id": "feishu_urgent",
+      "type": "tool",
+      "name": "飞书通知（紧急）",
+      "config": {
+        "tool_type": "feishu_message",
+        "receive_id": "{{FEISHU_CHAT_ID}}",
+        "receive_id_type": "chat_id",
+        "text": "🚨 紧急通知：{{message}}\n请相关人员立即处理！"
+      },
+      "position": { "x": 600, "y": 300 }
+    }
+  ]
+}

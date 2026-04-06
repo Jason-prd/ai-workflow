@@ -1,0 +1,46 @@
+{
+  "name": "GPT 日报生成器",
+  "description": "每天早上自动调用 GPT 生成工作日报，并推送至飞书群",
+  "trigger_config": {
+    "type": "cron",
+    "expression": "0 9 * * 1-5",
+    "timezone": "Asia/Shanghai"
+  },
+  "nodes": [
+    {
+      "id": "trigger_1",
+      "type": "trigger",
+      "name": "定时触发",
+      "config": {
+        "type": "cron",
+        "cron_expression": "0 9 * * 1-5",
+        "timezone": "Asia/Shanghai"
+      },
+      "position": { "x": 100, "y": 200 }
+    },
+    {
+      "id": "ai_1",
+      "type": "ai_task",
+      "name": "生成日报",
+      "config": {
+        "model": "gpt-4o-mini",
+        "prompt": "请根据今日工作内容，生成一份简洁的工作日报，包含：1. 今日完成事项；2. 明日计划；3. 遇到的问题与解决思路。风格专业、简洁，总字数 300 字以内。",
+        "temperature": 0.7,
+        "max_tokens": 1000
+      },
+      "position": { "x": 350, "y": 200 }
+    },
+    {
+      "id": "feishu_1",
+      "type": "tool",
+      "name": "发送飞书消息",
+      "config": {
+        "tool_type": "feishu_message",
+        "receive_id": "{{FEISHU_CHAT_ID}}",
+        "receive_id_type": "chat_id",
+        "text": "📋 今日工作日报\n\n{{ai_result}}"
+      },
+      "position": { "x": 600, "y": 200 }
+    }
+  ]
+}
