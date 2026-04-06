@@ -14,12 +14,19 @@
 </p>
 
 <p align="center">
+  🚀 <strong>从想法到运行：拖拽 → 连线 → 发布，3分钟完成一个 AI 工作流</strong>
+</p>
+
+<p align="center">
   ⭐ <a href="https://github.com/Jason-prd/ai-workflow">Star 支持我们</a> · 您的 Stars 是我们持续迭代的最大动力！
 </p>
 
 <p align="center">
   <a href="https://github.com/Jason-prd/ai-workflow/stargazers">
     <img src="https://img.shields.io/github/stars/Jason-prd/ai-workflow?style=flat-square" alt="Stars"/>
+  </a>
+  <a href="https://github.com/Jason-prd/ai-workflow/issues">
+    <img src="https://img.shields.io/github/issues/Jason-prd/ai-workflow?style=flat-square" alt="Issues"/>
   </a>
   <a href="https://star-history.dev/#Jason-prd/ai-workflow">
     <img src="https://api.star-history.dev/svg?repos=Jason-prd/ai-workflow" alt="Star History" width="120"/>
@@ -64,11 +71,11 @@
 
 ### 典型使用场景
 
-- 📊 **运营自动化** — 自动生成周报/月报，数据汇总分析
-- 📝 **HR 工作流** — 简历初筛、面试安排提醒
-- 🌐 **跨境电商** — 商品 listing 多语言优化、多平台发布
-- 🔧 **个人效率** — 个人效率工具、跨系统 API 集成
-- 👥 **团队协作** — 团队工作流自动化、审批流程
+- 📊 **运营自动化** — 每天早上 9 点自动拉取昨日数据 → GPT 生成格式周报 → 推送到飞书群，一键搞定
+- 📝 **HR 工作流** — 简历自动初筛，AI 评估匹配度，符合条件的候选人自动发送面试邀请
+- 🌐 **跨境电商** — GPT 多语言优化商品 listing，自动发布到多个平台，省时 80%
+- 🔧 **个人效率** — 定时抓取竞品动态 → AI 摘要 → 推送飞书，随时掌握市场变化
+- 👥 **团队协作** — CRON 定时触发工作流，团队无需手动，日报自动汇总发送到群
 
 ---
 
@@ -104,6 +111,60 @@
 ### 🐳 Docker 部署
 - 一键 Docker Compose 部署，开箱即用
 - 生产级 Nginx 反向代理配置
+
+---
+
+## 🏗 系统架构
+
+```mermaid
+flow TB
+    subgraph 前端["🌐 前端 (React + TypeScript)"]
+        UI[🎨 工作流设计器<br/>拖拽式可视化画布]
+        Logs[📋 执行日志页面]
+        Auth[🔐 登录/注册]
+    end
+
+    subgraph 后端["⚙️ 后端 (FastAPI + Python)"]
+        API[🚀 FastAPI API]
+        Engine[⚡ 执行引擎<br/>拓扑排序调度]
+        Nodes[🤖 节点执行器<br/>Trigger/AI/Tool/Condition]
+        Scheduler[⏰ 定时调度器<br/>APScheduler]
+        Auth_JWT[🔑 JWT 认证]
+    end
+
+    subgraph AI["🤖 AI 服务"]
+        GPT[🧠 OpenAI GPT-4o<br/>变量替换执行]
+    end
+
+    subgraph 集成["🔗 工具集成"]
+        Feishu[📮 飞书集成<br/>消息/文档/日历/触发器]
+        HTTP[🌐 HTTP 请求<br/>通用 RESTful API]
+    end
+
+    subgraph 存储["💾 数据存储"]
+        DB[(🗄 SQLite<br/>工作流/用户/日志)]
+    end
+
+    UI -->|拖拽设计| API
+    Logs -->|查询| API
+    Auth -->|登录认证| Auth_JWT
+    API -->|读取/保存| DB
+    API -->|触发执行| Engine
+    Engine -->|调度节点| Nodes
+    Nodes -->|AI 调用| GPT
+    Nodes -->|工具调用| Feishu
+    Nodes -->|工具调用| HTTP
+    Scheduler -->|定时触发| Engine
+    GPT -->|返回结果| Engine
+    Feishu -->|推送结果| Engine
+    Engine -->|写入日志| DB
+
+    classDef frontend fill:#61dafb,color:#000
+    classDef backend fill:#ff6b6b,color:#fff
+    classDef ai fill:#a855f7,color:#fff
+    classDef integration fill:#22c55e,color:#fff
+    classDef storage fill:#f59e0b,color:#000
+```
 
 ---
 
